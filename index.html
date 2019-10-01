@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>weather dashboard</h1>>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-3">
+                <h3>Search for a City:</h3>
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default" id="searchCityInput">
+                    <div class="input-group-prepend">
+                        <button class="input-group-text" id="inputGroup-sizing-default">Default</button>
+                    </div>
+                </div>
+                <ul class="list-group" id="previousSearched">
+                    <li class="list-group-item">1</li>
+                    <li class="list-group-item">2</li>
+                    <li class="list-group-item">3</li>
+                    <li class="list-group-item">4</li>
+                    <li class="list-group-item">5</li>
+                    <li class="list-group-item">1</li>
+                    <li class="list-group-item">2</li>
+                    <li class="list-group-item">3</li>
+                    <li class="list-group-item">4</li>
+                    <li class="list-group-item">5</li>
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                <p id="city">city date</p>
+
+                <ul class="list-group">
+                    <li class="list-group-item" id="temperature">2</li>
+                    <li class="list-group-item" id="humidity">3</li>
+                    <li class="list-group-item" id="windspeed">4</li>
+                    <li class="list-group-item" id="uvindex">5</li>
+                </ul>
+                <br>
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h1 class="display-4">Fluid jumbotron</h1>
+                        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its
+                            parent.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        let cityQuery = "";
+        //let myapiID = "appid=0a0fc4079b915def8b03cae9bd9ca8f5";
+        //let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + cityQuery + "&cnt=5&units=imperial&" + myapiID;
+        //let queryforecasturl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + cityQuery + "&" + myapiID;
+        //http://api.openweathermap.org/data/2.5/forecast?q=london&appid=0a0fc4079b915def8b03cae9bd9ca8f5
+
+
+
+        $("button").on("click", function () {
+            
+            event.preventDefault();
+            let cityQuery = $("#searchCityInput").val();
+            console.log(cityQuery);
+            let finalApi = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityQuery + "&appid=0a0fc4079b915def8b03cae9bd9ca8f5";
+            $.ajax({
+                url: finalApi,
+                method: "GET"
+            })
+
+                .then(function (response) {
+
+                    console.log(response);
+                    $("#city").text(response.city.name);
+                    $("#temperature").text(response.list[0].main.temp);
+                    $("#humidity").text(response.list[0].main.humidity);
+                    $("#windspeed").text(response.list[0].wind.speed);
+                });
+
+            
+
+            
+        })
+
+
+
+    </script>
+
+</body>
+
+</html>
