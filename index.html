@@ -9,10 +9,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
-    <h1>weather dashboard</h1>>
+    <h1>
+        <p id="header">Weather Dashboard</p>
+    </h1>>
 
     <div class="container">
         <div class="row">
@@ -24,39 +27,69 @@
                     <input type="text" class="form-control" aria-label="Sizing example input"
                         aria-describedby="inputGroup-sizing-default" id="searchCityInput">
                     <div class="input-group-prepend">
-                        <button class="input-group-text" id="inputGroup-sizing-default">Default</button>
+                        <button class="input-group-text" id="inputGroup-sizing-default">Search</button>
                     </div>
                 </div>
                 <ul class="list-group" id="previousSearched">
-                    <li class="list-group-item">1</li>
-                    <li class="list-group-item">2</li>
-                    <li class="list-group-item">3</li>
-                    <li class="list-group-item">4</li>
-                    <li class="list-group-item">5</li>
-                    <li class="list-group-item">1</li>
-                    <li class="list-group-item">2</li>
-                    <li class="list-group-item">3</li>
-                    <li class="list-group-item">4</li>
-                    <li class="list-group-item">5</li>
+
+
                 </ul>
             </div>
             <div class="col-sm-9">
-                <p id="city">city date</p>
+                <h2>
+                    <p id="city">
+                        <--- Search City</p> </h3> <ul class="list-group">
+                            <li class="list-group-item" id="temperature">Temperature</li>
+                            <li class="list-group-item" id="humidity">Humidity</li>
+                            <li class="list-group-item" id="windspeed">Wind speed</li>
+                            <li class="list-group-item" id="uvindex"><span id="uvindex">UV index</span></li>
+                            </ul>
+                            <br>
+                            <h4 class="display-4">5 day forecast</h4>
+                            <div class="jumbotron jumbotron-fluid">
+                                <div class="container">
 
-                <ul class="list-group">
-                    <li class="list-group-item" id="temperature">2</li>
-                    <li class="list-group-item" id="humidity">3</li>
-                    <li class="list-group-item" id="windspeed">4</li>
-                    <li class="list-group-item" id="uvindex">5</li>
-                </ul>
-                <br>
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <h1 class="display-4">Fluid jumbotron</h1>
-                        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its
-                            parent.</p>
-                    </div>
-                </div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <p id="5daydate1"></p>
+                                                <p id="5dayimage1"></p>
+                                                <img id=image1>
+                                                <p id="5daytemp1"></p>
+                                                <p id="5dayhumid1"></p>
+                                            </div>
+                                            <div class="col-sm">
+                                                <p id="5daydate2"></p>
+                                                <p id="5dayimage2"></p>
+                                                <img id=image2>
+                                                <p id="5daytemp2"></p>
+                                                <p id="5dayhumid2"></p>
+                                            </div>
+                                            <div class="col-sm">
+                                                <p id="5daydate3"></p>
+                                                <p id="5dayimage3"></p>
+                                                <img id=image3>
+                                                <p id="5daytemp3"></p>
+                                                <p id="5dayhumid3"></p>
+                                            </div>
+                                            <div class="col-sm">
+                                                <p id="5daydate4"></p>
+                                                <p id="5dayimage4"></p>
+                                                <img id=image4>
+                                                <p id="5daytemp4"></p>
+                                                <p id="5dayhumid4"></p>
+                                            </div>
+                                            <div class="col-sm">
+                                                <p id="5daydate5"></p>
+                                                <p id="5dayimage5"></p>
+                                                <img id=image5>
+                                                <p id="5daytemp5"></p>
+                                                <p id="5dayhumid5"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
             </div>
 
         </div>
@@ -65,37 +98,114 @@
     <script>
 
         let cityQuery = "";
-        //let myapiID = "appid=0a0fc4079b915def8b03cae9bd9ca8f5";
-        //let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + cityQuery + "&cnt=5&units=imperial&" + myapiID;
-        //let queryforecasturl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + cityQuery + "&" + myapiID;
-        //http://api.openweathermap.org/data/2.5/forecast?q=london&appid=0a0fc4079b915def8b03cae9bd9ca8f5
+        let today = new Date();
+        let date = "";
+        let qwer = "";
+        if (today.getDate() < 10) {
+            date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-0" + today.getDate();
+        } else {
+            date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+        }
 
+        $("#inputGroup-sizing-default").on("click", function () {
 
-
-        $("button").on("click", function () {
-            
             event.preventDefault();
             let cityQuery = $("#searchCityInput").val();
             console.log(cityQuery);
-            let finalApi = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityQuery + "&appid=0a0fc4079b915def8b03cae9bd9ca8f5";
+            let finalApi = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityQuery + "&units=imperial&appid=0a0fc4079b915def8b03cae9bd9ca8f5";
+            let lat = 0;
+            let lon = 0;
+            let prevsearch = $("<button>");
+            prevsearch.text(cityQuery);
+            prevsearch.addClass("list-group-item");
+            prevsearch.attr("id", "hellobutton");
+            prevsearch.attr("data-name", cityQuery);
+            $("#previousSearched").prepend(prevsearch);
+
             $.ajax({
                 url: finalApi,
                 method: "GET"
             })
-
                 .then(function (response) {
-
+                    $(".col-sm").addClass("forecastC");
+                    //icon url for openweather = https://openweathermap.org/img/w/{ID GOES HERE}.png
+                    let pnglink = response.list[0].weather[0].icon;
+                    let pngfile = "https://openweathermap.org/img/w/" + pnglink + ".png";
                     console.log(response);
-                    $("#city").text(response.city.name);
-                    $("#temperature").text(response.list[0].main.temp);
-                    $("#humidity").text(response.list[0].main.humidity);
-                    $("#windspeed").text(response.list[0].wind.speed);
-                });
+                    $("#city").text(response.city.name + " " + date);
 
-            
+                    let newimg = $("<img>");
+                    newimg.attr("src", pngfile);
+                    $("#city").append(newimg);
+                    $("#temperature").text("Temperature " + response.list[0].main.temp);
+                    $("#humidity").text("Humidity " + response.list[0].main.humidity);
+                    $("#windspeed").text("Wind speed " + response.list[0].wind.speed);
+                    //console.log(response.list[0].dt_txt);
+                    lon = response.city.coord.lon;
+                    lat = response.city.coord.lat;
+                    console.log(lon + " " + lat);
+                    let apiIndex = "http://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=0a0fc4079b915def8b03cae9bd9ca8f5"
+                    let date1 = response.list[4].dt_txt;
+                    let newdate1 = date1.slice(0, 10);
+                    let date1img = $("<img>");
+                    $("#5daydate1").text(newdate1);
+                    $("#image1").attr("src", "https://openweathermap.org/img/w/" + response.list[4].weather[0].icon + ".png");
+                    $("#5daytemp1").text(response.list[4].main.temp);
+                    $("#5dayhumid1").text(response.list[4].main.humidity);
 
-            
-        })
+                    let date2 = response.list[12].dt_txt;
+                    let newdate2 = date2.slice(0, 10);
+                    let date2img = $("<img>");
+                    $("#5daydate2").text(newdate2);
+                    $("#image2").attr("src", "https://openweathermap.org/img/w/" + response.list[12].weather[0].icon + ".png");
+                    $("#5daytemp2").text(response.list[12].main.temp);
+                    $("#5dayhumid2").text(response.list[12].main.humidity);
+
+                    let date3 = response.list[20].dt_txt;
+                    let newdate3 = date3.slice(0, 10);
+                    let date3img = $("<img>");
+                    $("#5daydate3").text(newdate3);
+                    $("#image3").attr("src", "https://openweathermap.org/img/w/" + response.list[20].weather[0].icon + ".png");
+                    $("#5daytemp3").text(response.list[20].main.temp);
+                    $("#5dayhumid3").text(response.list[20].main.humidity);
+
+                    let date4 = response.list[28].dt_txt;
+                    let newdate4 = date4.slice(0, 10);
+                    let date4img = $("<img>");
+                    $("#5daydate4").text(newdate4);
+                    $("#image4").attr("src", "https://openweathermap.org/img/w/" + response.list[28].weather[0].icon + ".png");
+                    $("#5daytemp4").text(response.list[28].main.temp);
+                    $("#5dayhumid4").text(response.list[28].main.humidity);
+
+                    let date5 = response.list[36].dt_txt;
+                    let newdate5 = date5.slice(0, 10);
+                    let date5img = $("<img>");
+                    $("#5daydate5").text(newdate5);
+                    $("#image5").attr("src", "https://openweathermap.org/img/w/" + response.list[36].weather[0].icon + ".png");
+                    $("#5daytemp5").text(response.list[36].main.temp);
+                    $("#5dayhumid5").text(response.list[36].main.humidity);
+
+                    $.ajax({
+                        url: apiIndex,
+                        method: "GET"
+                    })
+                        .then(function (response) {
+                            console.log(response);
+                            $("#uvindex").text("UV Index " + response[0].value);
+                        });
+
+                    $("#hellobutton").on("click", function (event) {
+                        event.preventDefault();
+                        cityQuery = $(this).attr("data-name");
+                        console.log(cityQuery);
+                    })
+                })
+        });
+
+
+
+
+
 
 
 
