@@ -112,7 +112,7 @@
             event.preventDefault();
             let cityQuery = $("#searchCityInput").val();
             console.log(cityQuery);
-            let finalApi = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityQuery + "&units=imperial&appid=0a0fc4079b915def8b03cae9bd9ca8f5";
+            let finalApi = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityQuery + "&units=imperial&appid=0a0fc4079b915def8b03cae9bd9ca8f5";
             let lat = 0;
             let lon = 0;
             let prevsearch = $("<button>");
@@ -144,7 +144,7 @@
                     lon = response.city.coord.lon;
                     lat = response.city.coord.lat;
                     console.log(lon + " " + lat);
-                    let apiIndex = "http://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=0a0fc4079b915def8b03cae9bd9ca8f5"
+                    let apiIndex = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=0a0fc4079b915def8b03cae9bd9ca8f5"
                     let date1 = response.list[4].dt_txt;
                     let newdate1 = date1.slice(0, 10);
                     let date1img = $("<img>");
